@@ -128,6 +128,66 @@ class Home extends StatelessWidget {
   }
 }
 
+class Stops {
+  BitmapDescriptor icon;
+  String stops;
+  List<Marker> markers = [];
+
+  Future<List<Marker>> loadStops() async {
+    icon = await BitmapDescriptor.fromAssetImage(
+        ImageConfiguration(size: Size(48, 48)), 'assets/bus.png');
+    stops = await getStops();
+    StopList l = jsonDecode(stops);
+    print(243);
+    print(l);
+
+    
+    
+    print(1234);
+    markers.add(generate(LatLng(42.661574, 23.378494), 1, icon));
+    markers.add(generate(LatLng(42.659069, 23.382173), 2, icon));
+
+    return markers;
+  }
+}
+
+class Stop {
+//  final String n;
+//  final String c;
+  final double x;
+  final double y;
+
+  Stop({
+//    this.n,
+//    this.c,
+    this.x,
+    this.y,
+  });
+
+  factory Stop.fromJson(Map<String, dynamic> json) {
+    return new Stop(
+//      n: json['n'].toString(),
+//      c: json['c'].toString(),
+      x: json['x'],
+      y: json['y'],
+    );
+  }
+}
+
+class StopList {
+  final List<Stop> stops;
+
+  StopList({this.stops});
+
+  factory StopList.fromJson(List<Stop> parsedJson) {
+    List<Stop> stops = new List<Stop>();
+
+    return new StopList(
+      stops: stops,
+    );
+  }
+}
+
 class MapSample extends StatefulWidget {
   @override
   State<MapSample> createState() => MapSampleState();
@@ -135,44 +195,38 @@ class MapSample extends StatefulWidget {
 
 class MapSampleState extends State<MapSample> {
   Completer<GoogleMapController> _controller = Completer();
-  BitmapDescriptor icon;
+  Stops s;
 
   @override
   void initState() {
     super.initState();
-    setCustomMapPin();
-    test();
-  }
-
-  void setCustomMapPin() async {
-    icon = await BitmapDescriptor.fromAssetImage(
-        ImageConfiguration(size: Size(48, 48)), 'assets/bus.png');
-  }
-
-  String stops;
-
-  void test() async {
-    stops = await getStops();
+    s = new Stops();
+    s.loadStops();
   }
 
   @override
   Widget build(BuildContext context) {
-    print(jsonDecode(stops));
-    List<Marker> allMarkers = [
-      generate(LatLng(42.661574, 23.378494), 1, icon),
-      generate(LatLng(42.659069, 23.382173), 2, icon),
-    ];
-
     return new Scaffold(
-      body: GoogleMap(
-        markers: Set.from(allMarkers),
-        mapType: MapType.normal,
-        initialCameraPosition:
-            CameraPosition(target: LatLng(42.661373, 23.379588), zoom: 16.0),
-        onMapCreated: (GoogleMapController controller) {
-          _controller.complete(controller);
-        },
-      ),
+      body: FutureBuilder<List<Marker>>(
+          future: s.loadStops(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return GoogleMap(
+                markers: Set.from(s.markers),
+                mapType: MapType.normal,
+                initialCameraPosition: CameraPosition(
+                    target: LatLng(42.661373, 23.379588), zoom: 16.0),
+                onMapCreated: (GoogleMapController controller) {
+                  _controller.complete(controller);
+                },
+              );
+            } else if (snapshot.hasError) {
+              return Text("${snapshot.error}");
+            }
+
+            // By default, show a loading spinner.
+            return CircularProgressIndicator();
+          }),
     );
   }
 }
