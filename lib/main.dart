@@ -150,10 +150,17 @@ class MapSampleState extends State<MapSample> {
               return GoogleMap(
                 markers: Set.from(markers),
                 mapType: MapType.normal,
-                initialCameraPosition:
-                    CameraPosition(target: LatLng(42.661373, 23.379588), zoom: 16.0),
+                initialCameraPosition: CameraPosition(
+                    target: LatLng(42.661373, 23.379588), zoom: 16.0),
+                onCameraMove: (CameraPosition position) {
+                  center = LatLng(
+                      position.target.latitude, position.target.longitude);
+                },
                 onMapCreated: (GoogleMapController controller) {
                   _controller.complete(controller);
+                },
+                onCameraIdle: () {
+                  print(center);
                 },
               );
             } else if (snapshot.hasError) {
