@@ -26,7 +26,10 @@ dependencies:
   font_awesome_flutter: ^8.5.0
   google_maps_flutter: ^0.5.21+15
   http: ^0.12.0+4
+<<<<<<< HEAD
   geolocator: ^5.2.0
+=======
+>>>>>>> 5cee2ddeea829b0f48b0ee276768a29dfa4a2082
 
 dev_dependencies:
   flutter_test:

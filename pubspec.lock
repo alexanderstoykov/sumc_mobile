@@ -81,6 +81,7 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "8.5.0"
+<<<<<<< HEAD
   geolocator:
     dependency: "direct main"
     description:
@@ -95,6 +96,8 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.2"
+=======
+>>>>>>> 5cee2ddeea829b0f48b0ee276768a29dfa4a2082
   google_maps_flutter:
     dependency: "direct main"
     description:
@@ -123,6 +126,7 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.4"
+<<<<<<< HEAD
   location_permissions:
     dependency: transitive
     description:
@@ -130,6 +134,8 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.4+1"
+=======
+>>>>>>> 5cee2ddeea829b0f48b0ee276768a29dfa4a2082
   matcher:
     dependency: transitive
     description:
