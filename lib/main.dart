@@ -1,13 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-<<<<<<< HEAD
 import 'stops.dart';
-=======
-import 'marker.dart';
-import 'stops.dart';
-import 'dart:convert';
->>>>>>> 5cee2ddeea829b0f48b0ee276768a29dfa4a2082
 
 void main() => runApp(SUMC());
 
@@ -139,36 +133,15 @@ class MapSample extends StatefulWidget {
 
 class MapSampleState extends State<MapSample> {
   Completer<GoogleMapController> _controller = Completer();
-<<<<<<< HEAD
-=======
-  BitmapDescriptor icon;
->>>>>>> 5cee2ddeea829b0f48b0ee276768a29dfa4a2082
 
   @override
   void initState() {
     super.initState();
-<<<<<<< HEAD
     loadMarkers();
-=======
-    setCustomMapPin();
-    test();
-  }
-
-  void setCustomMapPin() async {
-    icon = await BitmapDescriptor.fromAssetImage(
-        ImageConfiguration(size: Size(48, 48)), 'assets/bus.png');
-  }
-
-  String stops;
-
-  void test() async {
-    stops = await getStops();
->>>>>>> 5cee2ddeea829b0f48b0ee276768a29dfa4a2082
   }
 
   @override
   Widget build(BuildContext context) {
-<<<<<<< HEAD
     return new Scaffold(
       body: FutureBuilder<List<Marker>>(
           future: loadMarkers(),
@@ -190,24 +163,6 @@ class MapSampleState extends State<MapSample> {
             // By default, show a loading spinner.
             return CircularProgressIndicator();
           }),
-=======
-    print(jsonDecode(stops));
-    List<Marker> allMarkers = [
-      generate(LatLng(42.661574, 23.378494), 1, icon),
-      generate(LatLng(42.659069, 23.382173), 2, icon),
-    ];
-
-    return new Scaffold(
-      body: GoogleMap(
-        markers: Set.from(allMarkers),
-        mapType: MapType.normal,
-        initialCameraPosition:
-            CameraPosition(target: LatLng(42.661373, 23.379588), zoom: 16.0),
-        onMapCreated: (GoogleMapController controller) {
-          _controller.complete(controller);
-        },
-      ),
->>>>>>> 5cee2ddeea829b0f48b0ee276768a29dfa4a2082
     );
   }
 }
