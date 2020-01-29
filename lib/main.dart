@@ -153,8 +153,7 @@ class MapSampleState extends State<MapSample> {
                 initialCameraPosition: CameraPosition(
                     target: LatLng(42.661373, 23.379588), zoom: 16.0),
                 onCameraMove: (CameraPosition position) {
-                  center = LatLng(
-                      position.target.latitude, position.target.longitude);
+                  center = position.target;
                 },
                 onMapCreated: (GoogleMapController controller) {
                   _controller.complete(controller);
