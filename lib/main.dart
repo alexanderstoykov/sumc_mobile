@@ -159,7 +159,7 @@ class MapSampleState extends State<MapSample> {
                   _controller.complete(controller);
                 },
                 onCameraIdle: () {
-                  print(center);
+                  loadMarkers();
                 },
               );
             } else if (snapshot.hasError) {
