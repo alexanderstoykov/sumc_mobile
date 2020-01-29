@@ -24,15 +24,16 @@ Future<List<Marker>> loadMarkers([LatLng location]) async {
     var stopPosition = LatLng(stop['y'], stop['x']);
     double offset = await Geolocator().distanceBetween(center.latitude,
         center.longitude, stopPosition.latitude, stopPosition.longitude);
-    if (offset < 1) {
-      //less than 1 km away
+    if (offset < 1000) {
+      //less than 300m away
       markers.add(generate(stopPosition, int.parse(stop['c']), icon));
-    } else {
-      print(offset);
-      print(stop);
-      print(center);
-      print('=====');
     }
+//    else {
+//      print(offset);
+//      print(stop);
+//      print(center);
+//      print('=====');
+//    }
   }
 
   return markers;
@@ -52,7 +53,7 @@ Future<void> loadUserLocation() async {
   Position position = await Geolocator().getCurrentPosition(
       desiredAccuracy: LocationAccuracy.lowest,
       locationPermissionLevel: GeolocationPermission.locationWhenInUse);
-  center = LatLng(position.latitude, position.longitude);
+  center = LatLng(42.661265, 23.379814);//LatLng(position.latitude, position.longitude);
 }
 
 Future<void> loadIcon() async {
