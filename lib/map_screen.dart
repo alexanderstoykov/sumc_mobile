@@ -18,6 +18,7 @@ class MapScreenState extends State<MapScreen> {
       body: FutureBuilder<List<Marker>>(
           future: loadMarkers(context),
           builder: (context, snapshot) {
+
             if (snapshot.hasData) {
               return GoogleMap(
                 markers: Set.from(markers),
