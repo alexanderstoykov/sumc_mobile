@@ -30,7 +30,7 @@ Future<List<Marker>> loadMarkers(BuildContext context) async {
         draggable: false,
         onTap: () {
           Navigator.pushNamed(context, StopScreen.id,
-              arguments: {'stop_id': int.parse(stop['c'])});
+              arguments: Stop(id: int.parse(stop['c'])));
         },
         position: stopPosition,
       ));
